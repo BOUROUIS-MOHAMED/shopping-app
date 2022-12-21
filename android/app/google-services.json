@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "808871091958",
+    "project_id": "dabbabi-service",
+    "storage_bucket": "dabbabi-service.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808871091958:android:17bdbef44874ac77cad6d7",
+        "android_client_info": {
+          "package_name": "com.mohamed.shopping_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808871091958-t7l95ol9ue4abh9fr2b9g52r2g0c457m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiZt7EARRj3qGRwNpzseTFpEsLp1hM8I0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808871091958-t7l95ol9ue4abh9fr2b9g52r2g0c457m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
