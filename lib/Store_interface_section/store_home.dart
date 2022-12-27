@@ -108,14 +108,30 @@ backgroundColor: Colors.black,
                                             child: Row(
                                               children: List.generate(bloc.cart.length, (index) => Padding(
                                                 padding:  EdgeInsets.symmetric(horizontal: 0.01.sw),
-                                                child: Hero(
+                                                child: Stack(
+                                                  children: [
+                                                    Hero(
 
-                                                  tag: "list${bloc.cart[index].storeProduct.name}details",
-                                                  child: CircleAvatar(
-                                                    backgroundImage: AssetImage(bloc.cart[index].storeProduct.image),
-                                                    backgroundColor: AppColors.darkGreen,
-                                                  ),
-                                                ),
+                                                      tag: "list${bloc.cart[index].storeProduct.name}details",
+                                                      child: CircleAvatar(
+                                                        backgroundImage: AssetImage(bloc.cart[index].storeProduct.image),
+                                                        backgroundColor: AppColors.darkGreen,
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      right: 0,
+                                                      child: CircleAvatar(
+
+                                                        backgroundColor: Colors.redAccent,
+                                                        radius: 6.r,
+                                                        child: Text(bloc.cart[index].quantity.toStringAsFixed(0),style: TextStyle(
+                                                          fontSize: 0.012.sh
+                                                        ),),
+
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
                                               )),
 
                                             ),
