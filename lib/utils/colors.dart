@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static final backGroundColor = Color(0xFFF6F5F2);
   static final textColor = const Color(0xFFccc7c5);
   static final mainColor = const Color(0xFF89dAd0);
   static final iconColor1 = const Color(0xFFffd28d);

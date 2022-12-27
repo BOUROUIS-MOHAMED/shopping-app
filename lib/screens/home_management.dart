@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/auth/auth.dart';
 
-import '../auth/login.dart';
 import 'navBar.dart';
 
 
@@ -38,7 +38,7 @@ class _HomeManagementState extends State<HomeManagement> {
     theme: ThemeData(brightness: Brightness.light),
     darkTheme: ThemeData(brightness: Brightness.dark),
     themeMode: ThemeMode.dark,
-    home:  Login());
+    home:  AuthScreen());
     }
   });
 }}

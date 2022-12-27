@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:shopping_app/constants/app_constant.dart';
 import '../helpers/directions_handler.dart';
 import '../main.dart';
 import '../screens/home_management.dart';
@@ -20,6 +24,8 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     initializeLocationAndSave();
+    bool isDarkModeActive= AdaptiveTheme.of(context).mode.isDark;
+    GetStorage().write('ThemeM', isDarkModeActive);
   }
 
   void initializeLocationAndSave() async {
@@ -58,7 +64,33 @@ sharedPreferences.setDouble('longitude', _locationData.longitude!);
   Widget build(BuildContext context) {
     return Material(
       color: Colors.black,
-      child: Container(color: Colors.purple,),
+      child: Center(
+        child: Container(color: Colors.purple,
+        child:
+        Center(
+          child: SizedBox(
+            width: 250.0,
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                fontSize: 80.0,
+                fontFamily: 'MBF Prime',
+              ),
+              child: AnimatedTextKit(
+                isRepeatingAnimation: false,
+
+                animatedTexts: [
+                  TyperAnimatedText(AppConstant.APP_NAME),
+
+                ],
+                onTap: () {
+                  print("Tap Event");
+                },
+              ),
+            ),
+          ),
+        )
+          ,),
+      ),
 
     );
   }
