@@ -30,7 +30,20 @@ void AddProduct( StoreProduct product){
     cart.add(StoreProductItem(storeProduct: product));
     notifyListeners();
 }
+int totalCartElements(){
+   return cart.fold<int>(0, (previousValue, element) =>previousValue+ element.quantity);
+
+  }
+  double totalCartAmount(){
+    return cart.fold<double>(0, (previousValue, element) =>previousValue+ (element.storeProduct.price*element.quantity));
+  }
+
+  void deleteProductFromCart(StoreProductItem product) {
+    cart.remove(product);
+    notifyListeners();
+  }
 }
+
 
 class StoreProductItem {
   StoreProductItem({this.quantity=1, required this.storeProduct});

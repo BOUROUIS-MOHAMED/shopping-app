@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shopping_app/Store_interface_section/store_bloc.dart';
+import 'package:shopping_app/Store_interface_section/store_cart_list.dart';
 import 'package:shopping_app/Store_interface_section/store_item_list.dart';
 import 'package:shopping_app/Store_interface_section/store_provider.dart';
 
@@ -62,11 +63,12 @@ backgroundColor: Colors.black,
                             top: -whitePanelHeight-kToolbarHeight+5,
                             height: 1.sh,
                             child: ClipRRect(
-                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30.r),bottomRight: Radius.circular(30.r)),
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25.r),bottomRight: Radius.circular(25.r)),
                               child: Container(
 
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
+                                  color: AppColors.backGroundColor,
+
 
                                 ),
                                 child: Padding(
@@ -79,8 +81,8 @@ backgroundColor: Colors.black,
                             curve: Curves.decelerate,
                             left:0,
                             right: 0,
-                            top: blackPanelHeight,
-                            height: 1.sh-kToolbarHeight,
+                            top: blackPanelHeight+0.03.sh,
+                            height: 1.sh-_bottomCardHeigh,
 
                             child: GestureDetector(
                               onVerticalDragUpdate: _onVerticalGesture,
@@ -89,62 +91,81 @@ backgroundColor: Colors.black,
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding:  EdgeInsets.all(_bottomCardHeigh/4),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Cart:",
-                                            style: GoogleFonts.abel(
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 0.03.sh,
-                                                color: Colors.white
+                                      padding:  EdgeInsets.all(_bottomCardHeigh/8),
+                                      child:  AnimatedSwitcher(
+                                        duration: duration,
+                                        child:bloc.storeState==StoreState.normal?
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Cart:",
+                                              style: GoogleFonts.abel(
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 0.03.sh,
+                                                  color: Colors.white
 
-                                            ),),
-                                        SizedBox(width: 0.05.sw,),
-                                        Expanded(
-                                          child: SingleChildScrollView(
+                                              ),),
+                                          SizedBox(width: 0.05.sw,),
+                                          Expanded(
+                                            child: SingleChildScrollView(
 
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              children: List.generate(bloc.cart.length, (index) => Padding(
-                                                padding:  EdgeInsets.symmetric(horizontal: 0.01.sw),
-                                                child: Stack(
-                                                  children: [
-                                                    Hero(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                children: List.generate(bloc.cart.length, (index) => Padding(
+                                                  padding:  EdgeInsets.symmetric(horizontal: 0.01.sw),
+                                                  child: Stack(
+                                                    children: [
+                                                      Hero(
 
-                                                      tag: "list${bloc.cart[index].storeProduct.name}details",
-                                                      child: CircleAvatar(
-                                                        backgroundImage: AssetImage(bloc.cart[index].storeProduct.image),
-                                                        backgroundColor: AppColors.darkGreen,
+                                                        tag: "list${bloc.cart[index].storeProduct.name}details",
+                                                        child: GestureDetector(
+                                                          onTap: (){
+                                                            _openCartSection();
+                                                          },
+                                                          child: CircleAvatar(
+                                                            backgroundImage: AssetImage(bloc.cart[index].storeProduct.image),
+                                                            backgroundColor: AppColors.darkGreen,
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Positioned(
-                                                      right: 0,
-                                                      child: CircleAvatar(
+                                                      Positioned(
+                                                        right: 0,
+                                                        child: CircleAvatar(
 
-                                                        backgroundColor: Colors.redAccent,
-                                                        radius: 6.r,
-                                                        child: Text(bloc.cart[index].quantity.toStringAsFixed(0),style: TextStyle(
-                                                          fontSize: 0.012.sh
-                                                        ),),
+                                                          backgroundColor: Colors.redAccent,
+                                                          radius: 6.r,
+                                                          child: Text(bloc.cart[index].quantity.toStringAsFixed(0),style: TextStyle(
+                                                            fontSize: 0.012.sh
+                                                          ),),
 
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                )
-                                              )),
+                                                    ],
+                                                  )
+                                                )),
 
+                                              ),
                                             ),
                                           ),
+                                        GestureDetector(
+                                            onTap: (){
+                                              _openCartSection();
+
+                                            },
+                                              child: CircleAvatar(
+                                                backgroundColor: AppColors.appGreen,
+                                                child:  Text(
+                                                  bloc.totalCartElements().toString()
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ):SizedBox(
+                                          height: kToolbarHeight,
                                         ),
-                                          CircleAvatar(
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        ],
                                       ),
                                     ),
-                                    Spacer(),
-                                    Placeholder(),
+                                  Expanded(child: StoreCartList())
                                   ],
                                 ),
                               ),
@@ -177,6 +198,13 @@ backgroundColor: Colors.black,
       appBarVisibility=true;
 
     }
+  }
+
+  void _openCartSection(){
+    appBarVisibility=false;
+    bloc.changeToCart();
+    _getTopForWhitePanel(bloc.storeState);
+    _getTopForBlackPanel(bloc.storeState);
   }
 
    _getTopForWhitePanel(StoreState state){
@@ -218,6 +246,7 @@ class StoreAppBar extends StatelessWidget {
       height: kToolbarHeight,
       alignment: Alignment.bottomCenter,
       color: Colors.white,
+
       child: Row(
         children: [
           IconButton(

@@ -15,87 +15,90 @@ class StoreItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = StoreProvider.of(context)?.bloc;
 
-    return Container(
+    return Padding(
+      padding:  EdgeInsets.only(top: 0.01.sh),
+      child: Container(
 
-      color: AppColors.backGroundColor,
-      child: StaggeredDualView(
+        color: AppColors.backGroundColor,
+        child: StaggeredDualView(
 
-        aspectRatio: 0.7,
-        itemBuilder: (context, index) {
-          final product=bloc.catalog[index];
-          return GestureDetector(
-            onTap: (){
-              Navigator.of(context).push(PageRouteBuilder(
-                transitionDuration: Duration(milliseconds: 500),
+          aspectRatio: 0.7,
+          itemBuilder: (context, index) {
+            final product=bloc.catalog[index];
+            return GestureDetector(
+              onTap: (){
+                Navigator.of(context).push(PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
 reverseTransitionDuration: Duration(milliseconds: 700),
-                pageBuilder: (context, animation, secondaryAnimation) {
-                return FadeTransition(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                  return FadeTransition(
 
-                    opacity: animation,
-                    child: StoreItemDetail(product:product,
-                    onProductAdded:(){
-                      bloc.AddProduct(product);
-                    }
-                    
-                    ));
-              },));
-            },
-            child: Card(
+                      opacity: animation,
+                      child: StoreItemDetail(product:product,
+                      onProductAdded:(){
+                        bloc.AddProduct(product);
+                      }
 
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.r)
-              ),
-elevation: 10,
-              child: Padding(
-                padding:  EdgeInsets.all(0.01.sh),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.min ,
-                  children: [
-                    Hero(
-                      tag:"list${product.name}" ,
-                      child: Image.asset(product.image,fit: BoxFit.contain,height: 0.15.sh
-                        ,),
-                    ),
-                    Text("${product.price.toStringAsFixed(2)} TND",style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.darkGreen,
-                      fontSize: 0.023.sh,
-                      decoration: TextDecoration.overline
-                    ),
-                    overflow: TextOverflow.ellipsis,
+                      ));
+                },));
+              },
+              child: Card(
 
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.r)
+                ),
+elevation: 2,
+                child: Padding(
+                  padding:  EdgeInsets.all(0.01.sh),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisSize: MainAxisSize.min ,
+                    children: [
+                      Hero(
+                        tag:"list${product.name}" ,
+                        child: Image.asset(product.image,fit: BoxFit.contain,height: 0.15.sh
+                          ,),
+                      ),
+                      Text("${product.price.toStringAsFixed(2)} TND",style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.darkGreen,
+                        fontSize: 0.023.sh,
+                        decoration: TextDecoration.overline
+                      ),
+                      overflow: TextOverflow.ellipsis,
+
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
+                        children: [
 
 
-                        Text("${product.name}",style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: 0.018.sh,
-                        ),),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text("${product.weight}",style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                          fontSize: 0.01.sh,
-                          overflow: TextOverflow.ellipsis,
-                        ),),
-                      ],
-                    )
-                  ],
+                          Text("${product.name}",style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 0.018.sh,
+                          ),),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("${product.weight}",style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                            fontSize: 0.01.sh,
+                            overflow: TextOverflow.ellipsis,
+                          ),),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
 itemCount: bloc!.catalog.length,
+        ),
       ),
     );
 

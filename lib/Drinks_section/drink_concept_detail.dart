@@ -7,9 +7,12 @@ import 'package:line_icons/line_icons.dart';
 import 'package:shopping_app/Drinks_section/drinks.dart';
 import 'package:shopping_app/utils/colors.dart';
 import  'package:shopping_app/utils/custom icon/drinkCupIcon.dart';
-IconData cup = IconData(0xe800, fontFamily: 'drinkCupIcon', fontPackage: null);
+
+import 'drink_shopping_cart.dart';
+
 class DrinkConceptDetails extends StatefulWidget {
-  const DrinkConceptDetails({Key? key,required this.drink}) : super(key: key);
+   DrinkConceptDetails({Key? key,required this.drink}) : super(key: key);
+
 
   final Drink drink;
 
@@ -17,10 +20,8 @@ class DrinkConceptDetails extends StatefulWidget {
   State<DrinkConceptDetails> createState() => _DrinkConceptDetailsState();
 }
 
-class _DrinkConceptDetailsState extends State<DrinkConceptDetails> {
-  bool cupOneSelected=false;
-  bool cupTwoSelected=false;
-  bool cupThreeSelected=false;
+class _DrinkConceptDetailsState extends State<DrinkConceptDetails> with SingleTickerProviderStateMixin{
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,124 +152,80 @@ child: Text(
 
                 ),
                 SizedBox(height: 0.05.sh,),
-                SizedBox(height: 0.03.sh,
-                child: RichText(text: TextSpan(
-                  style:  TextStyle(
-                    fontSize: 0.018.sh,
-                    color: Colors.black38
-                  ),
-                  children: [
-                    TextSpan(text: "Select the Cup Size ",style:GoogleFonts.roboto(
-                      color: Colors.black,fontWeight: FontWeight.w800
-                        ,fontSize: 0.025.sh
-                    ) ),
-                    TextSpan(text: "(Small/Medium/Large) :")
-                  ]
-                ),),
-                ),
-                
-                
-                SizedBox(height: 0.2.sh,
-                  child: Stack(
 
-                    children: [
-              Positioned(
-                child: Container(
 
+
+
+Spacer(),
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 0.07.sw,vertical: 0.03.sh),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center
-                    ,mainAxisAlignment: MainAxisAlignment.center,
-
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(
-                          alignment: Alignment.bottomCenter,
-                          child:GestureDetector(
-                            onTap: ()=>drinkSmallSizeSelected(),
-                            child: Container(
-                              height: 0.15.sh,
-                              width: 0.2.sw,
-                              decoration: BoxDecoration(
-                                  color:  cupOneSelected?Colors.black:Colors.black12.withOpacity(0.05),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Icon(
-                                  cup,
-                                  size: 0.05.sh,
-                                  color: cupOneSelected?AppColors.yellowColor:Colors.grey),
-                            ),
-                          )),
-                      Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 0.1.sw),
-                        child:  Align(
-                            alignment: Alignment.bottomCenter,
-                            child:GestureDetector(
-                              onTap: ()=>drinkMediumSizeSelected(),
-                              child: Container(
-                                height: 0.15.sh,
-                                width: 0.2.sw,
-                                decoration: BoxDecoration(
-                                    color:  cupTwoSelected?Colors.black:Colors.black12.withOpacity(0.05),
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Icon(
-                                    cup,
-                                    size: 0.075.sh,
-                                    color: cupTwoSelected?AppColors.yellowColor:Colors.grey),
-                              ),
-                            )),),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child:GestureDetector(
-                          onTap: ()=>drinkLargeSizeSelected(),
-                          child: Container(
-                            height: 0.15.sh,
-                            width: 0.2.sw,
-                            decoration: BoxDecoration(
-                              color:  cupThreeSelected?Colors.black:Colors.black12.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: Icon(
-                                cup,
-                                size: 0.10.sh,
-                                color: cupThreeSelected?AppColors.yellowColor:Colors.grey),
-                          ),
-                        )),
+                      Container(
+                        height: 0.05.sh,
+                        width: 0.05.sh,
 
-
-                    ],
-                  ),
-                ),
-              )
-,
-
-                    ],
-                  ),
-
-                ),
-                SizedBox(height: 0.05.sh,),
-                SizedBox(
-                  height: 50,
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: ()=>NotifyMe(),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 0.9.sw,
-                        height: 0.1.sh,
                         decoration: BoxDecoration(
-                          color: AppColors.appGreen,
-                          borderRadius: BorderRadius.circular(10.r)
+                          color: Colors.white,
+ boxShadow: [
+   BoxShadow(
+     color: Colors.black,
+     spreadRadius: -5,
+     blurRadius: 15
+   )
+ ],
+                          borderRadius: BorderRadius.circular(30.r)
+
                         ),
-                        child: Text("Notify my choice",style: GoogleFonts.novaMono(
-                          fontSize: 0.03.sh,
-                          color: Colors.white
-                        ),),
+                        child: Center(
+                          child: IconButton(
+                            onPressed: (){
 
+                            }
+                            ,
+                            color: Colors.white,
+                            icon: Icon(FontAwesomeIcons.solidHeart,color: Colors.black,size: 0.02.sh,),
 
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        height: 0.05.sh,
+                        width: 0.05.sh,
+
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black,
+                                  spreadRadius: -5,
+                                  blurRadius: 15
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(30.r)
+
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            onPressed: (){
+                              openShoppingCart(widget.drink);
+                            }
+                            ,
+                            color: Colors.white,
+                            icon: Icon(CupertinoIcons.cart_badge_plus,color: Colors.black,),
+
+                          ),
+                        ),
+                      ),
+
+/*FloatingActionButton(onPressed: (){},
+backgroundColor: Colors.black,
+child: Center(child: Icon(CupertinoIcons.cart,color: Colors.white,)),)*/
+                    ],
                   ),
                 )
+
               ],
             ),
           ),
@@ -278,27 +235,14 @@ child: Text(
   }
 
 
-  drinkSmallSizeSelected() async{
-    setState(() {
-      cupOneSelected=true;
-      cupTwoSelected=false;
-      cupThreeSelected=false;
-    });
-  }
-  drinkMediumSizeSelected() async{
-    setState(() {
-      cupOneSelected=false;
-      cupTwoSelected=true;
-      cupThreeSelected=false;
-    });
-  }
-  drinkLargeSizeSelected() async{
-    setState(() {
-      cupOneSelected=false;
-      cupTwoSelected=false;
-      cupThreeSelected=true;
-    });
 
+  void openShoppingCart(Drink drink) async{
+await Navigator.of(context).push(PageRouteBuilder(
+  opaque: false,
+    pageBuilder: (context, animation, secondaryAnimation) {
+      return FadeTransition(opacity: animation,
+      child: DrinkShoppingCart(drink: drink,),);
+    },));
   }
 
 }
@@ -306,3 +250,50 @@ child: Text(
 NotifyMe() {
   print("just clicked");
 }
+/*    SizedBox(
+                  height: 0.1.sh,
+                  child: Center(
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+
+
+                        return GestureDetector(
+                          onTap: (){
+                          setState(() {
+    NotifyMe();
+    _controller.forward();
+                          });
+    },
+                        child: Container(
+                        alignment: Alignment.center,
+                        width: (_addToCartButtonWidth*_animationButton1.value).clamp(_addToCartCircularButtonWidth, _addToCartButtonWidth),
+                        height: _addToCartButtonHeight,
+                        decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(1.r*(_animationButton1.value+40))
+                        ),
+                        child:
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.shopping_cart_outlined,color: Colors.white,),
+                           if(_animationButton1.value == 1)
+                            ...[
+                             SizedBox(width: (0.07.sw*_animationButton1.value).clamp(0.0, 0.07.sw)),
+                             Text(  "ADD TO CART",style: GoogleFonts.aBeeZee(
+                                 fontSize: 0.03.sh,
+                                 color: Colors.white
+                             ),),
+                           ]
+                          ],
+                        ),
+
+
+                        ),
+                        );
+                        }
+
+                    ),
+                  ),
+                )*/

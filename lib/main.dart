@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopping_app/Drinks_section/main_drink_section.dart';
 import 'package:shopping_app/Store_interface_section/store_home.dart';
 import 'package:shopping_app/ui/splash.dart';
+import 'package:shopping_app/widgets/test_home_page.dart';
 
 
 import 'configuration/themes/theme_manager.dart';
@@ -75,7 +76,8 @@ class MyApp extends StatelessWidget {
                             debugShowCheckedModeBanner: false,
 
 
-                            home: StoreHomePage()
+                            home: ApplicationMap()
+                          // StoreHomePage()
                           // MainDrinkSection()
                         );
                       }))

@@ -21,6 +21,7 @@ void _addToCart(BuildContext context){
    heroTag='details';
  });
 widget.onProductAdded();
+
 Navigator.of(context).pop();
 }
 
